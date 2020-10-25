@@ -1,5 +1,6 @@
 import json
 from functools import reduce
+from json.decoder import JSONDecodeError
 
 def extract_data(str_obj, keys):
     """
@@ -8,7 +9,7 @@ def extract_data(str_obj, keys):
     and the corresponding value.
 
     Example
-    =======
+
     INPUT:
         a= '{
                 "guid": "1234",
@@ -28,7 +29,11 @@ def extract_data(str_obj, keys):
         { "guid": "1234", "content.entities": [ "1.2.3.4", "wannacry", "malware.com"], "score": 74 }
 
     """
-    obj = json.loads(str_obj)
+    obj = {}
+    try:
+        obj = json.loads(str_obj)
+    except ValueError:
+        raise
     result = {}
     for key in keys:
         result[key] = get_value(obj, key)

@@ -1,4 +1,5 @@
 import unittest
+
 from extractor import extract_data
 
 class TestExtractor(unittest.TestCase):
@@ -26,3 +27,9 @@ class TestExtractor(unittest.TestCase):
                              expected_result,
                              'It should return a dictionary with the keys expressed in dot notation and its values')
 
+    def test_when_malformed_json_obj_is_passed(self):
+        malformed_str_obj = '{\"prop:2'
+        keys = ['prop']
+
+        with self.assertRaises(ValueError):
+            extract_data(malformed_str_obj, keys)
