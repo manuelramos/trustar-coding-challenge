@@ -33,3 +33,13 @@ class TestExtractor(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             extract_data(malformed_str_obj, keys)
+
+    def test_when_property_with_up_no_level_deep_does_not_exist_on_the_json_obj(self):
+        keys = ['guid', 'non-existent1', 'non-existent2']
+        expected_result = {'guid': '1234'}
+
+        actual_result = extract_data(self.str_obj, keys)
+
+        self.assertDictEqual(actual_result,
+                             expected_result,
+                             'It should return a dictionary with the values of the keys that do exist')

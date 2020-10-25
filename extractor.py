@@ -36,9 +36,11 @@ def extract_data(str_obj, keys):
         raise
     result = {}
     for key in keys:
-        result[key] = get_value(obj, key)
+        value = get_value(obj, key)
+        if value:
+            result[key] = value
     return result
 
 
 def get_value(obj, key):
-    return reduce(lambda a,b: a[b], key.split('.'), obj)
+    return reduce(lambda a,b: a[b] if b in a else None, key.split('.'), obj)
