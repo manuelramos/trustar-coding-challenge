@@ -30,10 +30,14 @@ def extract_data(str_obj, keys):
 
     """
     obj = {}
+    if not str_obj:
+        return obj
+
     try:
         obj = json.loads(str_obj)
     except ValueError:
         raise
+
     result = {}
     for key in keys:
         value = get_value(obj, key)
