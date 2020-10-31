@@ -11,7 +11,8 @@ class TestExtractor(unittest.TestCase):
             + '"content": {"type": "text/html"},'
             + '"score":4321,'
             + '"headers":{"connection": "close"},'
-            + '"resource_response":{"error":{"extra_data":{"message":"No user present"}}}'
+            + '"resource_response":{"error":{"extra_data":{"message":"No user present"}}},'
+            + '"arrayed": {"items": [{"id": 1, "value": "UNO"}, {"id": 2, "value": "DOS"}]}'
             + "}"
         )
 
@@ -104,4 +105,14 @@ class TestExtractor(unittest.TestCase):
             actual_result,
             expected_result,
             "It should return a dictionary without the nested properties as key",
+        )
+
+    def test_when_accessing_arrayed_properties(self):
+        arrayed_properties = ["arrayed.items[0].value"]
+        expected_result = {"arrayed.items[0].value": "UNO"}
+
+        actual_result = extract_data(self.str_json_obj, arrayed_properties)
+
+        self.assertDictEqual(
+            actual_result, expected_result, "It should return a dict with the arrayed nested property with it value"
         )

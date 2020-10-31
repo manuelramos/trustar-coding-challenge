@@ -1,5 +1,6 @@
 import json
 from functools import reduce
+import re
 
 
 def extract_data(str_obj, keys):
@@ -41,7 +42,21 @@ def extract_data(str_obj, keys):
 
     result = {}
     for key in keys:
-        value = reduce(lambda d, k: d.get(k, None) if d else None, key.split("."), obj)
+        value = reduce(apply, key.split("."), obj)
         if value:
             result[key] = value
     return result
+
+
+def apply(dic, key):
+    partial = None
+    match = re.search("\[(\d)\]$", key)  # match array indice
+    if match:
+        idx = int(match.group(0)[1:-1])
+        key_name = key[:-3]
+        if isinstance(dic[key_name], list):
+            partial = dic[key_name][idx]
+    elif dic:
+        partial = dic.get(key, None)
+
+    return partial
