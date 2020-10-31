@@ -6,8 +6,13 @@ from extractor import extract_data
 class TestExtractor(unittest.TestCase):
     def setUp(self):
         self.str_json_obj = (
-            '{"guid": "1234", "content": {"type": "text/html"}, "score":4321,'
-            + '"headers":{"connection": "close"}}'
+            "{"
+            + '"guid": "1234",'
+            + '"content": {"type": "text/html"},'
+            + '"score":4321,'
+            + '"headers":{"connection": "close"},'
+            + '"resource_response":{"error":{"extra_data":{"message":"No user present"}}}'
+            + "}"
         )
 
     def test_when_keys_are_passed_with_up_no_level_deep(self):
@@ -75,4 +80,18 @@ class TestExtractor(unittest.TestCase):
             actual_result,
             expected_result,
             "It should return a dictionary with the values of the keys that do exist",
+        )
+
+    def test_when_passing_arbitrary_existing_nested_sequence_of_properties(self):
+        arbitrary_nested_props = ["resource_response.error.extra_data.message"]
+        expected_result = {
+            "resource_response.error.extra_data.message": "No user present"
+        }
+
+        actual_result = extract_data(self.str_json_obj, arbitrary_nested_props)
+
+        self.assertDictEqual(
+            actual_result,
+            expected_result,
+            "It should return a dictionary with the value for the nested properties",
         )
