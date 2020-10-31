@@ -4,8 +4,8 @@ import re
 
 
 def extract_data(str_obj, keys):
-    """
-    Extract data from a string-like json object.
+    """Extract data from a string-like json object.
+
     Returns a dictionary made up of the 'keys' passed as arguments (expressed in dot notation)
     and the corresponding value.
     if the key does not exist then the resulting dictionary will not have that key.
@@ -50,7 +50,7 @@ def extract_data(str_obj, keys):
 
 def apply(dic, key):
     partial = None
-    match = re.search("\[(\d)\]$", key)  # match array indice
+    match = re.search("\[(\d)\]$", key)  # match array index-like
     if match:
         idx = int(match.group(0)[1:-1])
         key_name = key[:-3]
