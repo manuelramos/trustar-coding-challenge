@@ -1,6 +1,6 @@
 import unittest
 
-from extractor import extract_data
+from extractors.extractor import dot_notation_get
 
 
 class TestExtractor(unittest.TestCase):
@@ -22,7 +22,7 @@ class TestExtractor(unittest.TestCase):
         keys = ["guid", "score"]
         expected_result = {"guid": "1234", "score": 4321}
 
-        actual_result = extract_data(self.str_json_obj, keys)
+        actual_result = dot_notation_get(self.str_json_obj, keys)
 
         self.assertDictEqual(
             actual_result,
@@ -34,7 +34,7 @@ class TestExtractor(unittest.TestCase):
         keys = ["guid", "content.type"]
         expected_result = {"guid": "1234", "content.type": "text/html"}
 
-        actual_result = extract_data(self.str_json_obj, keys)
+        actual_result = dot_notation_get(self.str_json_obj, keys)
 
         self.assertDictEqual(
             actual_result,
@@ -47,13 +47,13 @@ class TestExtractor(unittest.TestCase):
         keys = ["prop"]
 
         with self.assertRaises(ValueError):
-            extract_data(malformed_str_json_obj, keys)
+            dot_notation_get(malformed_str_json_obj, keys)
 
     def test_when_keys_with_up_no_level_deep_does_not_exist(self):
         keys = ["guid", "non-existent1", "non-existent2"]
         expected_result = {"guid": "1234"}
 
-        actual_result = extract_data(self.str_json_obj, keys)
+        actual_result = dot_notation_get(self.str_json_obj, keys)
 
         self.assertDictEqual(
             actual_result,
@@ -65,7 +65,7 @@ class TestExtractor(unittest.TestCase):
         keys = ["guid", "content.level2", "headers.level2"]
         expected_result = {"guid": "1234"}
 
-        actual_result = extract_data(self.str_json_obj, keys)
+        actual_result = dot_notation_get(self.str_json_obj, keys)
 
         self.assertDictEqual(
             actual_result,
@@ -77,7 +77,7 @@ class TestExtractor(unittest.TestCase):
         keys = ["guid"]
         expected_result = {}
 
-        actual_result = extract_data(None, keys)
+        actual_result = dot_notation_get(None, keys)
 
         self.assertDictEqual(
             actual_result,
@@ -89,7 +89,7 @@ class TestExtractor(unittest.TestCase):
         arbitrary_nested_props = ["resource_response.error.extra_data.message"]
         expected_result = {"resource_response.error.extra_data.message": "No user present"}
 
-        actual_result = extract_data(self.str_json_obj, arbitrary_nested_props)
+        actual_result = dot_notation_get(self.str_json_obj, arbitrary_nested_props)
 
         self.assertDictEqual(
             actual_result,
@@ -101,7 +101,7 @@ class TestExtractor(unittest.TestCase):
         arbitrary_nested_props = ["resource_response.error.extra_data.does_not_exist.message"]
         expected_result = {}
 
-        actual_result = extract_data(self.str_json_obj, arbitrary_nested_props)
+        actual_result = dot_notation_get(self.str_json_obj, arbitrary_nested_props)
 
         self.assertDictEqual(
             actual_result,
@@ -112,7 +112,7 @@ class TestExtractor(unittest.TestCase):
     def test_when_accessing_arrayed_properties(self):
         arrayed_properties = ["complex[1].items[0].value"]
         expected_result = {"complex[1].items[0].value": "TRES"}
-        actual_result = extract_data(self.str_json_obj, arrayed_properties)
+        actual_result = dot_notation_get(self.str_json_obj, arrayed_properties)
 
         self.assertDictEqual(
             actual_result, expected_result, "It should return a dict with the arrayed nested property with it value"
@@ -122,7 +122,7 @@ class TestExtractor(unittest.TestCase):
         arrayed_properties = ["arrayed.items[20].value"]
         expected_result = {}
 
-        actual_result = extract_data(self.str_json_obj, arrayed_properties)
+        actual_result = dot_notation_get(self.str_json_obj, arrayed_properties)
 
         self.assertDictEqual(
             actual_result, expected_result, "It should return a dictionary without the nested failed property"
@@ -132,7 +132,7 @@ class TestExtractor(unittest.TestCase):
         arrayed_properties = ["arrayed.items.value"]
         expected_result = {}
 
-        actual_result = extract_data(self.str_json_obj, arrayed_properties)
+        actual_result = dot_notation_get(self.str_json_obj, arrayed_properties)
 
         self.assertDictEqual(
             actual_result, expected_result, "It should return a dictionary without the nested failed property"
