@@ -12,7 +12,9 @@ class TestExtractor(unittest.TestCase):
             + '"score":4321,'
             + '"headers":{"connection": "close"},'
             + '"resource_response":{"error":{"extra_data":{"message":"No user present"}}},'
-            + '"arrayed": {"items": [{"id": 1, "value": "UNO"}, {"id": 2, "value": "DOS"}]}'
+            + '"arrayed": {"items": [{"id": 1, "value": "UNO"}, {"id": 2, "value": "DOS"}]},'
+            + '"complex": [{"items": [{"id": 1, "value": "UNO"}, {"id": 2, "value": "DOS"}]},'
+            + '{"items": [{"id": 3, "value": "TRES"}, {"id": 4, "value": "CUATRO"}]}]'
             + "}"
         )
 
@@ -108,9 +110,8 @@ class TestExtractor(unittest.TestCase):
         )
 
     def test_when_accessing_arrayed_properties(self):
-        arrayed_properties = ["arrayed.items[0].value"]
-        expected_result = {"arrayed.items[0].value": "UNO"}
-
+        arrayed_properties = ["complex[1].items[0].value"]
+        expected_result = {"complex[1].items[0].value": "TRES"}
         actual_result = extract_data(self.str_json_obj, arrayed_properties)
 
         self.assertDictEqual(
