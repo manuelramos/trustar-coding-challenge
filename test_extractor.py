@@ -126,3 +126,13 @@ class TestExtractor(unittest.TestCase):
         self.assertDictEqual(
             actual_result, expected_result, "It should return a dictionary without the nested failed property"
         )
+
+    def test_when_accessing_malformed_arrayed_properties(self):
+        arrayed_properties = ["arrayed.items.value"]
+        expected_result = {}
+
+        actual_result = extract_data(self.str_json_obj, arrayed_properties)
+
+        self.assertDictEqual(
+            actual_result, expected_result, "It should return a dictionary without the nested failed property"
+        )

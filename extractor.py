@@ -56,7 +56,7 @@ def apply(dic, key):
         key_name = key[:-3]
         if isinstance(dic[key_name], list):
             partial = dic[key_name][idx]
-    elif dic:
+    elif dic and not isinstance(dic, list):
         partial = dic.get(key, None)
 
     return partial
