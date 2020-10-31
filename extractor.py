@@ -2,6 +2,7 @@ import json
 from functools import reduce
 from json.decoder import JSONDecodeError
 
+
 def extract_data(str_obj, keys):
     """
     Extract data from a string-like json object.
@@ -47,4 +48,4 @@ def extract_data(str_obj, keys):
 
 
 def get_value(obj, key):
-    return reduce(lambda a,b: a[b] if b in a else None, key.split('.'), obj)
+    return reduce(lambda a, b: a[b] if b in a else None, key.split("."), obj)
