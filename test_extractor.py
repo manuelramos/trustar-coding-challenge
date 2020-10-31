@@ -116,3 +116,13 @@ class TestExtractor(unittest.TestCase):
         self.assertDictEqual(
             actual_result, expected_result, "It should return a dict with the arrayed nested property with it value"
         )
+
+    def test_when_accessing_arrayed_properties_and_invalid_indice(self):
+        arrayed_properties = ["arrayed.items[20].value"]
+        expected_result = {}
+
+        actual_result = extract_data(self.str_json_obj, arrayed_properties)
+
+        self.assertDictEqual(
+            actual_result, expected_result, "It should return a dictionary without the nested failed property"
+        )
