@@ -3,7 +3,7 @@ import unittest
 from extractors.extractor import dot_notation_get
 
 
-class TestExtractor(unittest.TestCase):
+class TestDotNotationGet(unittest.TestCase):
     def setUp(self):
         self.str_json_obj = (
             "{"
