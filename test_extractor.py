@@ -82,11 +82,9 @@ class TestExtractor(unittest.TestCase):
             "It should return a dictionary with the values of the keys that do exist",
         )
 
-    def test_when_passing_arbitrary_existing_nested_sequence_of_properties(self):
+    def test_when_arbitrary_existing_nested_sequence_properties(self):
         arbitrary_nested_props = ["resource_response.error.extra_data.message"]
-        expected_result = {
-            "resource_response.error.extra_data.message": "No user present"
-        }
+        expected_result = {"resource_response.error.extra_data.message": "No user present"}
 
         actual_result = extract_data(self.str_json_obj, arbitrary_nested_props)
 
@@ -94,4 +92,16 @@ class TestExtractor(unittest.TestCase):
             actual_result,
             expected_result,
             "It should return a dictionary with the value for the nested properties",
+        )
+
+    def test_when_arbitrary_nested_sequence_properties_with_some_nonexistent(self):
+        arbitrary_nested_props = ["resource_response.error.extra_data.does_not_exist.message"]
+        expected_result = {}
+
+        actual_result = extract_data(self.str_json_obj, arbitrary_nested_props)
+
+        self.assertDictEqual(
+            actual_result,
+            expected_result,
+            "It should return a dictionary without the nested properties as key",
         )

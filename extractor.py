@@ -1,6 +1,5 @@
 import json
 from functools import reduce
-from json.decoder import JSONDecodeError
 
 
 def extract_data(str_obj, keys):
@@ -8,6 +7,7 @@ def extract_data(str_obj, keys):
     Extract data from a string-like json object.
     Returns a dictionary made up of the 'keys' passed as arguments (expressed in dot notation)
     and the corresponding value.
+    if the key does not exist then the resulting dictionary will not have that key.
 
     Example
 
@@ -41,11 +41,7 @@ def extract_data(str_obj, keys):
 
     result = {}
     for key in keys:
-        value = get_value(obj, key)
+        value = reduce(lambda d, k: d.get(k, None) if d else None, key.split("."), obj)
         if value:
             result[key] = value
     return result
-
-
-def get_value(obj, key):
-    return reduce(lambda a, b: a[b] if b in a else None, key.split("."), obj)
