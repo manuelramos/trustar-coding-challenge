@@ -13,7 +13,6 @@ pyflakes==2.2.0
 PyGithub==1.53
 PyJWT==1.7.1
 regex==2020.10.28
-requests==2.24.0
 toml==0.10.1
 typed-ast==1.4.1
 typing-extensions==3.7.4.3
