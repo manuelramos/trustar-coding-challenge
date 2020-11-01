@@ -1,16 +1,16 @@
 # trustar-coding-challenge
 TruSTAR Software Engineering Questionnaire
 
-The `poc_app.py` file is an sample application that uses the package (`extractors`).
+The `extractors` package contains the functionality to extract the data from a json.
 
-The package has a function that receives a json-string and a list of properties, expressed in dot notation, to extract from the json-string.
+The `app.py` file is a Flask sample application to demonstrate the use of the package.
 
-## Running the app
+# Running the app locally
 Some prerequisites before start:
-- You should have created a virtual environment for the app.
-- You should have a [github access token](https://github.com/settings/apps) created for you.
+- Clone this repo.
+- Create a virtual environment for the app.
 
-Export the GITHUB_ACCESS_TOKEN environment variable
+If you have a [github access token](https://github.com/settings/apps) (not required) export the `GITHUB_ACCESS_TOKEN` environment variable
 
 `export GITHUB_ACCESS_TOKEN=<your-access-token>`
 
@@ -22,10 +22,11 @@ Run the sample app.
 
 `python app.py`
 
+Visit `http://localhost:8000/` to see the results.
 
-## If you prefer run this on docker, here the steps
+# If you prefer run this on docker, here the steps
 
-### build the image
+### Build the image
 `docker image build --build-arg GITHUB_ACCESS_TOKEN=<your-access-token> -t itrustar .`
 
 > If you don't have a Github Token, It doesn't matter, the app also works without it. Just remove the `--build-arg GITHUB_ACCESS_TOKEN=<your-access-token>` param from the command above.
