@@ -3,12 +3,12 @@ import unittest
 from extractors.dot_notation import get_data
 
 
-class TestDotNotationGet(unittest.TestCase):
+class TestDotNotationGetData(unittest.TestCase):
     def setUp(self):
         self.str_json_obj = (
             "{"
             + '"guid": "1234",'
-            + '"content": {"type": "text/html"},'
+            + '"content": {"t   ype": "text/html"},'
             + '"score":4321,'
             + '"headers":{"connection": "close"},'
             + '"resource_response":{"error":{"extra_data":{"message":"No user present"}}},'
