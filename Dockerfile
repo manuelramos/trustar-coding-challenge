@@ -8,6 +8,6 @@ COPY requirements.txt /app
 
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY . /app
 
 CMD [ "python", "./poc_app.py" ]

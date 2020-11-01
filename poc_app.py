@@ -1,5 +1,3 @@
-import requests
-import re
 import os
 from github import Github
 from github.GithubException import BadCredentialsException, UnknownObjectException
@@ -18,7 +16,7 @@ def read_data(files, properties):
         if file.name.endswith(".json"):
             print("=== Information from file {} ===".format(file.name))
             print(dot_notation_get(file.decoded_content, ["id", "objects[0].name", "objects[0].kill_chain_phases"]))
-            print("======")
+            print("")
 
 
 if __name__ == "__main__":
