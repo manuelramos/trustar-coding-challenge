@@ -3,7 +3,7 @@ from functools import reduce
 import re
 
 
-def dot_notation_get(str_obj, keys):
+def get_data(str_obj, keys):
     """Extract data from a string-like json object.
 
     Returns a dictionary made up of the 'keys' passed as arguments (expressed in dot notation)
@@ -25,7 +25,7 @@ def dot_notation_get(str_obj, keys):
         }'
         b = ["guid", "content.entities", "score", "score.sign"]
 
-        > extract_data(a,b)
+        > get_data(a,b)
 
     OUTPUT:
         { "guid": "1234", "content.entities": [ "1.2.3.4", "wannacry", "malware.com"], "score": 74 }

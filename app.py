@@ -8,7 +8,7 @@ from flask import jsonify
 from github import Github
 from github.GithubException import BadCredentialsException, UnknownObjectException
 
-from extractors.extractor import dot_notation_get
+from extractors.dot_notation import get_data
 
 
 GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
@@ -22,7 +22,7 @@ def get_data_from_files(files, properties_to_read):
         if file.name.endswith(".json"):
             raw_url = file.download_url
             data = urllib.request.urlopen(raw_url).read().decode("utf-8")
-            result[file.name] = dot_notation_get(data, properties_to_read)
+            result[file.name] = get_data(data, properties_to_read)
     return result
 
 
