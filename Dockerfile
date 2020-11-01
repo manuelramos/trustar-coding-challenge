@@ -4,10 +4,10 @@ ARG GITHUB_ACCESS_TOKEN=
 
 WORKDIR /app
 
-COPY requirements.txt /app
+COPY . /app
 
 RUN pip install -r requirements.txt
 
-COPY . /app
+EXPOSE 8000
 
-CMD [ "python", "./poc_app.py" ]
+CMD [ "python", "app.py" ]
