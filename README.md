@@ -20,7 +20,7 @@ Install the dependencies:
 
 Run the sample app.
 
-`python poc_app.py`
+`python app.py`
 
 
 ## If you prefer run this on docker, here the steps
@@ -28,8 +28,13 @@ Run the sample app.
 ### build the image
 `docker image build --build-arg GITHUB_ACCESS_TOKEN=<your-access-token> -t itrustar .`
 
-### Run the container
-`docker container run --name ctrustar itrustar`
+> If you don't have a Github Token, It doesn't matter, the app also works without it. Just remove the `--build-arg GITHUB_ACCESS_TOKEN=<your-access-token>` param from the command above.
 
-### Important
-There is a [limitation](https://developer.github.com/v3/#rate-limiting) per token on the amount of requests made to the server, keep that in mind.
+### Run the container
+`docker container run -p 8000:8000 --name ctrustar itrustar`
+
+Visit `http://localhost:8000/` to see the results.
+
+
+# Important
+The application will take its time to present the final results, it all depends on how many files are in the repo.
