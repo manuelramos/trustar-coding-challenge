@@ -1,2 +1,35 @@
 # trustar-coding-challenge
 TruSTAR Software Engineering Questionnaire
+
+The `poc_app.py` file is an sample application that uses the package (`extractors`).
+
+The package has a function that receives a json-string and a list of properties, expressed in dot notation, to extract from the json-string.
+
+## Running the app
+Some prerequisites before start:
+- You should have created a virtual environment for the app.
+- You should have a [github access token](https://github.com/settings/apps) created for you.
+
+Export the GITHUB_ACCESS_TOKEN environment variable
+
+`export GITHUB_ACCESS_TOKEN=<your-access-token>`
+
+Install the dependencies:
+
+`pip install -r requirements.txt`
+
+Run the sample app.
+
+`python poc_app.py`
+
+
+## If you prefer run this on docker, here the steps
+
+### build the image
+`docker image build --build-arg GITHUB_ACCESS_TOKEN=<your-access-token> -t itrustar .`
+
+### Run the container
+`docker container run --name ctrustar itrustar`
+
+### Important
+There is a [limitation](https://developer.github.com/v3/#rate-limiting) per token on the amount of requests made to the server, keep that in mind.
