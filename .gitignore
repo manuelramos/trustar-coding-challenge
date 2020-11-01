@@ -1,2 +1,5 @@
 __pycache__
+build/
+dist/
+dot_notation_extractor_mr.egg-info/
 .python-version
